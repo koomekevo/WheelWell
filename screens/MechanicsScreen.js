@@ -29,7 +29,7 @@ const MechanicsScreen = () => {
 
   const fetchNearbyMechanics = async (coords) => {
     try {
-      const response = await axios.get(`YOUR_BACKEND_API_URL/mechanics`, {
+      const response = await axios.get(`https://wheelwellbackendservice.onrender.com/api/`, {
         params: {
           latitude: coords.latitude,
           longitude: coords.longitude,
