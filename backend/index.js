@@ -27,8 +27,10 @@ mongoose
     console.error('Error connecting to MongoDB:', error);
   });
 
-// Routes
+// Import routes
 const mechanicsRoutes = require('./routes/mechanics');
+
+// Use routes
 app.use('/api', mechanicsRoutes);
 
 // Start the server
