@@ -4,7 +4,7 @@ npm-debug.log
 yarn-error.log
 
 # Environment files (e.g., .env)
-.env*.local
+.env
 
 # macOS related files
 .DS_Store
