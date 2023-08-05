@@ -1,39 +1,36 @@
 // screens/DriverSignUpScreen.js
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
-import { Container, Content, Button, Text, Icon } from "native-base";
-import * as Google from "expo-google-app-auth";
+import {
+  Container,
+  Content,
+  Button,
+  Text,
+  Form,
+  Item,
+  Input,
+} from "native-base";
 import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "../firebaseConfig";
-import { initializeApp } from "firebase/app";
 
-initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 const DriverSignUpScreen = ({ navigation }) => {
-  const handleSignUpWithGoogle = async () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignUp = async () => {
     try {
-      const result = await Google.logInAsync({
-        androidClientId: "YOUR_ANDROID_CLIENT_ID",
-        iosClientId: "YOUR_IOS_CLIENT_ID",
-        scopes: ["profile", "email"],
-      });
-
-      if (result.type === "success") {
-        const { idToken, accessToken } = result;
-        const credential = firebase.auth.GoogleAuthProvider.credential(
-          idToken,
-          accessToken
-        );
-
-        await firebase.auth().signInWithCredential(credential);
-        console.log("Google Sign Up Success", result.user);
-        // You can handle the sign-up success here, e.g., save user data to Firebase
-      } else {
-        console.log("Google Sign Up Cancelled");
-      }
+      const userCredential = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+      // Handle successful sign-up, e.g., save user data to Firestore
+      console.log("Driver Sign Up Success", userCredential.user);
     } catch (error) {
-      console.error("Google Sign Up Error:", error);
+      console.error("Driver Sign Up Error:", error);
     }
   };
 
@@ -46,10 +43,26 @@ const DriverSignUpScreen = ({ navigation }) => {
           paddingHorizontal: 16,
         }}
       >
-        <View style={{ marginBottom: 20 }}>
-          <Button block onPress={handleSignUpWithGoogle} iconLeft>
-            <Icon name="logo-google" />
-            <Text>Sign up with Google (Driver)</Text>
+        <Form>
+          <Item>
+            <Input
+              placeholder="Email"
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+            />
+          </Item>
+          <Item>
+            <Input
+              placeholder="Password"
+              secureTextEntry
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+            />
+          </Item>
+        </Form>
+        <View style={{ marginTop: 20 }}>
+          <Button block onPress={handleSignUp}>
+            <Text>Sign up as Driver</Text>
           </Button>
         </View>
       </Content>
