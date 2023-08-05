@@ -1,9 +1,9 @@
 // screens/MechanicScreen.js
-import React, { useState } from 'react';
-import { View, Button } from 'react-native';
-import styled from 'styled-components/native';
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import React, { useState } from "react";
+import { View, Button } from "react-native";
+import styled from "styled-components/native";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 const Container = styled.View`
   flex: 1;
@@ -31,29 +31,34 @@ const ButtonContainer = styled.View`
 `;
 
 const MechanicScreen = () => {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [verificationCode, setVerificationCode] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+  const [verificationId, setVerificationId] = useState(null);
 
   const sendVerificationCode = async () => {
     try {
-      const confirmation = await firebase.auth().signInWithPhoneNumber(phoneNumber);
-      // Store the confirmation object for later use
-      console.log('Verification code sent:', confirmation);
+      const confirmation = await firebase
+        .auth()
+        .signInWithPhoneNumber(phoneNumber);
+      setVerificationId(confirmation.verificationId);
+      console.log("Verification code sent:", confirmation);
     } catch (error) {
-      console.log('Error sending verification code:', error);
+      console.log("Error sending verification code:", error);
     }
   };
 
   const signInWithVerificationCode = async () => {
     try {
       const credential = firebase.auth.PhoneAuthProvider.credential(
-        verificationId, // Get this from the confirmation object
+        verificationId,
         verificationCode
       );
       await firebase.auth().signInWithCredential(credential);
-      console.log('Signed in with phone number');
+      console.log("Signed in with phone number");
+      // Perform navigation or other actions upon successful sign-in
     } catch (error) {
-      console.log('Error signing in with verification code:', error);
+      console.log("Error signing in with verification code:", error);
+      Alert.alert("Error", "Invalid verification code");
     }
   };
 
@@ -77,6 +82,6 @@ const MechanicScreen = () => {
       {/* Add mechanic-specific components and functionalities */}
     </Container>
   );
-}
+};
 
 export default MechanicScreen;
