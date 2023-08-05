@@ -6,6 +6,7 @@ import DriverScreen from "./screens/DriverScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { initializeApp } from "firebase/app";
 import styled from "styled-components/native";
+import Icon from 'react-native-vector-icons/Ionicons';
 import firebase from "firebase/app";
 import "firebase/auth";
 
@@ -31,12 +32,28 @@ const App = () => {
 
   return (
     <NavigationContainer>
-    <Tab.Navigator>
-      <Tab.Screen name="Mechanic" component={MechanicScreen} />
-      <Tab.Screen name="Driver" component={DriverScreen} />
-      {/* Add other tab screens and navigation options */}
-    </Tab.Navigator>
-  </NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen
+          name="Mechanic"
+          component={MechanicScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="build" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Driver"
+          component={DriverScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="car" color={color} size={size} />
+            ),
+          }}
+        />
+        {/* Add other tab screens and navigation options */}
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 
