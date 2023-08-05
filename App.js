@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import MechanicScreen from "./screens/MechanicScreen";
 import DriverScreen from "./screens/DriverScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { initializeApp } from "firebase/app";
 import styled from "styled-components/native";
 import firebase from "firebase/app";
@@ -20,6 +21,7 @@ const firebaseConfig = {
 };
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const App = () => {
   useEffect(() => {
@@ -29,12 +31,12 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Mechanic" component={MechanicScreen} />
-        <Stack.Screen name="Driver" component={DriverScreen} />
-        {/* Add other screens and navigation options */}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator>
+      <Tab.Screen name="Mechanic" component={MechanicScreen} />
+      <Tab.Screen name="Driver" component={DriverScreen} />
+      {/* Add other tab screens and navigation options */}
+    </Tab.Navigator>
+  </NavigationContainer>
   );
 };
 
