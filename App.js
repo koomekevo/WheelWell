@@ -1,43 +1,38 @@
-// App.js
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
-import AuthScreen from "./screens/AuthScreen";
+
 import HomeScreen from "./screens/HomeScreen";
 import MechanicsScreen from "./screens/MechanicsScreen";
+import MechanicSignUpScreen from "./screens/MechanicSignUpScreen";
+import DriverSignUpScreen from "./screens/DriverSignUpScreen";
 
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-
-            if (route.name === "Auth") {
-              iconName = focused ? "log-in" : "log-in-outline";
-            } else if (route.name === "Home") {
-              iconName = focused ? "home" : "home-outline";
-            } else if (route.name === "Mechanics") {
-              iconName = focused ? "map" : "map-outline";
-            }
-
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: "blue",
-          inactiveTintColor: "gray",
-        }}
-      >
-        <Tab.Screen name="Auth" component={AuthScreen} />
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Mechanics" component={MechanicsScreen} />
-      </Tab.Navigator>
+      {/* Use Stack.Navigator to create a stack of screens */}
+      <Stack.Navigator>
+        <Stack.Screen name="TabNavigator" component={TabNavigator} />
+      </Stack.Navigator>
     </NavigationContainer>
+  );
+};
+
+// Create a separate TabNavigator component
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator>
+      {/* Add your tab screens */}
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Mechanics" component={MechanicsScreen} />
+      <Tab.Screen name="MechanicSignUp" component={MechanicSignUpScreen} />
+      <Tab.Screen name="DriverSignUp" component={DriverSignUpScreen} />
+      {/* Add more screens as needed */}
+    </Tab.Navigator>
   );
 };
 
