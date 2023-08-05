@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import { View, Button } from "react-native";
 import styled from "styled-components/native";
-import firebase from "firebase/app";
-import "firebase/auth";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import config from "../firebaseConfig";
 
 const Container = styled.View`
   flex: 1;
@@ -55,7 +56,9 @@ const DriverScreen = () => {
       );
       await firebase.auth().signInWithCredential(credential);
       console.log("Signed in with phone number");
-      // Perform navigation or other actions upon successful sign-in
+
+      // Navigate to the next screen (example: Dashboard)
+      navigation.navigate("Dashboard");
     } catch (error) {
       console.log("Error signing in with verification code:", error);
       Alert.alert("Error", "Invalid verification code");
@@ -64,7 +67,7 @@ const DriverScreen = () => {
 
   return (
     <Container>
-      <Title>Driver Dashboard</Title>
+      <Title>Driver Sign In</Title>
       <Input
         placeholder="Phone Number"
         value={phoneNumber}

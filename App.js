@@ -6,30 +6,19 @@ import DriverScreen from "./screens/DriverScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { initializeApp } from "firebase/app";
 import styled from "styled-components/native";
-import Icon from 'react-native-vector-icons/Ionicons';
-import firebase from "firebase/app";
-import "firebase/auth";
+import Icon from "react-native-vector-icons/Ionicons";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 
-// Your web app's Firebase configuration
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCdCEXDtaG_ruG7rC9n5WVzg0Phywnp_9c",
-  authDomain: "wheelwell-cb4de.firebaseapp.com",
-  projectId: "wheelwell-cb4de",
-  storageBucket: "wheelwell-cb4de.appspot.com",
-  messagingSenderId: "120989154090",
-  appId: "1:120989154090:web:95ff157cf445a8c2ff3c53",
-};
+const Container = styled.View`
+  flex: 1;
+  background-color: #fff;
+`;
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const App = () => {
-  useEffect(() => {
-    // Initialize Firebase (if not already initialized)
-    const app = initializeApp(firebaseConfig);
-  }, []);
-
   return (
     <NavigationContainer>
       <Tab.Navigator>
