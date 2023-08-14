@@ -25,13 +25,14 @@ export default function GoogleMapView({ placeList }) {
     <View style={{ marginTop: 20 }}>
       <Text
         style={{
-          fontSize: 20,
+          fontSize: 18,
           marginBottom: 10,
           fontWeight: "600",
           fontFamily: "raleway-bold",
+          fontWeight: "bold",
         }}
       >
-        Top Near By Places
+        Top Near By Auto Service Providers
       </Text>
       <View style={{ borderRadius: 20, overflow: "hidden" }}>
         {location ? (

@@ -28,8 +28,9 @@ export default function CategoryList({ setSelectedCategory }) {
     <View style={{ marginTop: 15 }}>
       <Text
         style={{
-          fontSize: 20,
+          fontSize: 18,
           fontFamily: "raleway-bold",
+          fontWeight: 'bold',
         }}
       >
         Select Top Category
