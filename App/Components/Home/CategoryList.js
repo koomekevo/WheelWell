@@ -13,15 +13,15 @@ export default function CategoryList({ setSelectedCategory }) {
     },
     {
       id: 2,
-      name: "Restaurants",
-      value: "restaurant",
-      icon: require("./../../../assets/food.png"),
+      name: "Garage",
+      value: "garage",
+      icon: require("./../../../assets/garage.png"),
     },
     {
       id: 3,
-      name: "Cafe",
-      value: "cafe",
-      icon: require("./../../../assets/cafe.png"),
+      name: "Towing",
+      value: "towing",
+      icon: require("./../../../assets/towing.png"),
     },
   ];
   return (
