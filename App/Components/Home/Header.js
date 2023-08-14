@@ -26,7 +26,7 @@ export default function Header() {
       />
 
       <View>
-        <TextInput placeholder="Search" style={styles.searchBar} />
+        <Text style={styles.logoText}>WheelWell</Text>
       </View>
       <Image
         source={require("./../../../assets/user.png")}
@@ -41,14 +41,17 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  searchBar: {
-    borderWidth: 1,
-    borderColor: Colors.GRAY,
+  logoText: {
     padding: 4,
     borderRadius: 50,
     paddingLeft: 10,
     width: Dimensions.get("screen").width * 0.53,
     borderColor: Colors.PRIMARY,
+  },
+  logoText: {
+    textAlign: 'center', // Center-align the text horizontally
+    fontSize: 24,
+    fontWeight: 'bold',
   },
   userImage: {
     width: 50,
