@@ -6,7 +6,7 @@ export default function CategoryItem({ category }) {
   return (
     <View
       style={{
-        padding: 5,
+        padding: 10,
         alignItems: "center",
         margin: 5,
         width: 95,
@@ -16,7 +16,7 @@ export default function CategoryItem({ category }) {
         backgroundColor: Colors.GRAY,
       }}
     >
-      <Image source={category.icon} style={{ width: 40, height: 30 }} />
+      <Image source={category.icon} style={{ width: 40, height: 40, margin: 5 }} />
       <Text style={{ fontSize: 13, fontFamily: "raleway" }}>
         {category.name}
       </Text>

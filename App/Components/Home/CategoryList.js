@@ -40,7 +40,7 @@ export default function CategoryList({ setSelectedCategory }) {
         data={categoryList}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        style={{ marginTop: 5 }}
+        style={{ marginTop: 10 }}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => setSelectedCategory(item.value)}>
             <CategoryItem category={item} />
