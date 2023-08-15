@@ -13,15 +13,15 @@ export default function CategoryList({ setSelectedCategory }) {
     },
     {
       id: 2,
-      name: "Garage",
-      value: "garage",
-      icon: require("./../../../assets/garage.png"),
+      name: "Car Repair",
+      value: "car_repair",
+      icon: require("./../../../assets/car_repair.png"),
     },
     {
       id: 3,
-      name: "Towing",
-      value: "towing",
-      icon: require("./../../../assets/towing.png"),
+      name: "Car Wash",
+      value: "car_wash",
+      icon: require("./../../../assets/car_wash.png"),
     },
   ];
   return (

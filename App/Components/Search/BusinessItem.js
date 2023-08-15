@@ -30,7 +30,7 @@ export default function BusinessItem({ place }) {
       ) : (
         <Image
           source={require("./../../../assets/placeholder.jpg")}
-          style={{ width: 130, height: 100, borderRadius: 9 }}
+          style={{ width: 120, height: 100, borderRadius: 9 }}
         />
       )}
       <Text
