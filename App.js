@@ -12,7 +12,7 @@ export default function App() {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [fontsLoaded] = useFonts({
-    raleway: require("./assets/Fonts/Raleway-Regular.ttf"),
+    "raleway": require("./assets/Fonts/Raleway-Regular.ttf"),
     "raleway-bold": require("./assets/Fonts/Raleway-SemiBold.ttf"),
   });
 
