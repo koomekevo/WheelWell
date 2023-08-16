@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = "https://maps.googleapis.com/maps/api/place";
-const API_KEY = "AIzaSyAlIDUiTW6M9p6qb7mHsMCvqk0_OMO3MV0";
+const API_KEY = "AIzaSyCp8Wf7GIw72M4EoXF9PCjHF8-FwuGsww0";
 
 const nearByPlace = (lat, lng, type) =>
   axios.get(

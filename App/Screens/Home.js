@@ -13,7 +13,7 @@ export default function Home() {
   const { location, setLocation } = useContext(UserLocationContext);
   useEffect(() => {
     if (location) {
-      GetNearBySearchPlace("restaurant");
+      GetNearBySearchPlace("car_repair");
     }
   }, [location]);
 
