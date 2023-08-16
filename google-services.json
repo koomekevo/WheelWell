@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "887202519021",
-    "project_id": "tubeguruji-app",
-    "storage_bucket": "tubeguruji-app.appspot.com"
+    "project_number": "574867804307",
+    "project_id": "wheelwellproject-395913",
+    "storage_bucket": "wheelwellproject-395913.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:887202519021:android:31ae95fe85813f79f979e4",
+        "mobilesdk_app_id": "1:574867804307:android:c0414406da67ed78a47d66",
         "android_client_info": {
-          "package_name": "com.tubeguruji.codebox"
+          "package_name": "com.gurucrafts.wheelwell"
         }
       },
       "oauth_client": [
         {
-          "client_id": "887202519021-2dea39f983qf2h2sl90ru32048s8gb60.apps.googleusercontent.com",
+          "client_id": "574867804307-t2tim2ddu1foddiugv79lj8a5qp9ac9j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCFgrivo6_Va0_t8BS8Mi2rfuFCC9cduQg"
+          "current_key": "AIzaSyDqibmGly2OLs0SNxtU7066hfJKF751NO0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "887202519021-11851hl38v45bevdh1n29tqukd72h7gp.apps.googleusercontent.com",
+              "client_id": "574867804307-t2tim2ddu1foddiugv79lj8a5qp9ac9j.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

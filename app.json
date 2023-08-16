@@ -24,7 +24,7 @@
         "backgroundColor": "#ffffff"
       },
       "googleServicesFile": "./google-services.json",
-      "package": "com.tubeguruji.findplace",
+      "package": "com.gurucrafts.wheelwell",
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",
