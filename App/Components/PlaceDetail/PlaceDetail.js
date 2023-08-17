@@ -7,7 +7,7 @@ import GoogleMapView from "../Home/GoogleMapView";
 import { TouchableOpacity } from "react-native";
 import { Platform } from "react-native";
 import { Linking } from "react-native";
-import { ScrollView } from "react-native";
+import { ScrollView } from "react-native-virtualized-view";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function PlaceDetail() {

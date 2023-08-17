@@ -23,7 +23,7 @@ export default function BusinessItem({ place }) {
               "?maxwidth=400" +
               "&photo_reference=" +
               place?.photos[0]?.photo_reference +
-              "&key=AIzaSyAlIDUiTW6M9p6qb7mHsMCvqk0_OMO3MV0",
+              "&key=AIzaSyCp8Wf7GIw72M4EoXF9PCjHF8-FwuGsww0",
           }}
           style={{ width: 120, height: 80, borderRadius: 10 }}
         />
@@ -33,10 +33,7 @@ export default function BusinessItem({ place }) {
           style={{ width: 120, height: 100, borderRadius: 9 }}
         />
       )}
-      <Text
-        numberOfLines={2}
-        style={{ fontSize: 16, marginTop: 5 }}
-      >
+      <Text numberOfLines={2} style={{ fontSize: 16, marginTop: 5 }}>
         {place.name}
       </Text>
       <Text

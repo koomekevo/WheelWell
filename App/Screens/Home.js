@@ -5,7 +5,7 @@ import GoogleMapView from "../Components/Home/GoogleMapView";
 import CategoryList from "../Components/Home/CategoryList";
 import GlobalApi from "../Services/GlobalApi";
 import PlaceList from "../Components/Home/PlaceList";
-import { ScrollView } from "react-native";
+import { ScrollView } from "react-native-virtualized-view";
 import { UserLocationContext } from "../Context/UserLocationContext";
 
 export default function Home() {
