@@ -17,7 +17,7 @@ export default function CategoryItem({ category }) {
       }}
     >
       <Image source={category.icon} style={{ width: 40, height: 40, margin: 5 }} />
-      <Text style={{ fontSize: 13, fontFamily: "raleway" }}>
+      <Text style={{ fontSize: 13 }}>
         {category.name}
       </Text>
     </View>

@@ -35,14 +35,13 @@ export default function BusinessItem({ place }) {
       )}
       <Text
         numberOfLines={2}
-        style={{ fontFamily: "raleway-bold", fontSize: 16, marginTop: 5 }}
+        style={{ fontSize: 16, marginTop: 5 }}
       >
         {place.name}
       </Text>
       <Text
         numberOfLines={2}
         style={{
-          fontFamily: "raleway",
           fontSize: 13,
           marginTop: 5,
           color: Colors.DARK_GRAY,

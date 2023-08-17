@@ -15,7 +15,6 @@ export default function PlaceList({ placeList }) {
       <Text
         style={{
           fontSize: 18,
-          fontFamily: "raleway-bold",
           fontWeight: "bold",
           marginTop: 10,
         }}

@@ -28,7 +28,6 @@ export default function GoogleMapView({ placeList }) {
           fontSize: 18,
           marginBottom: 10,
           fontWeight: "600",
-          fontFamily: "raleway-bold",
           fontWeight: "bold",
         }}
       >

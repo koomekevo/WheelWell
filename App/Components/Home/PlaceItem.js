@@ -35,7 +35,7 @@ export default function PlaceItem({ place }) {
       <View style={{ flex: 1 }}>
         <Text
           numberOfLines={2}
-          style={{ fontSize: 18, marginBottom: 5, fontFamily: "raleway-bold" }}
+          style={{ fontSize: 18, marginBottom: 5 }}
         >
           {place.name}
         </Text>

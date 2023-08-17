@@ -22,7 +22,7 @@ export default function SearchBar({ setSearchText }) {
             justifyContent: "space-between",
           }}
         >
-          <Text style={{ fontFamily: "raleway-bold", fontSize: 35 }}>
+          <Text style={{ fontSize: 35 }}>
             Discover
           </Text>
           <Image

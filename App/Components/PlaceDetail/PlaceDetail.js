@@ -66,7 +66,6 @@ export default function PlaceDetail() {
 
         <Text
           style={{
-            fontFamily: "raleway",
             textAlign: "center",
             color: Colors.WHITE,
           }}
