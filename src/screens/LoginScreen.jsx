@@ -50,7 +50,7 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={(text) => setPassword(text)}
         secureTextEntry
       />
-      <AuthButton title="Log In" onPress={handleLogin} />
+      <AuthButton title="Log In" onPress={() => navigation.navigate("HomeScreen")} />
       <RegisterLinkText onPress={() => navigation.navigate("RegisterScreen")}>
         Don't have an account? Register here
       </RegisterLinkText>
