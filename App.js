@@ -1,23 +1,24 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import styled from "styled-components/native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import LoginScreen from "./src/screens/LoginScreen";
+import RegisterScreen from "./src/screens/RegisterScreen";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+const App = () => {
   return (
-    <Container>
-      <MiddleText>WheelWell App</MiddleText>
-    </Container>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Login"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const Container = styled.View`
-  flex: 1;
-  background-color: white;
-  align-items: center;
-  justify-content: center;
-`;
-const MiddleText = styled.Text`
-  font-size: 18px;
-  color: blue;
-  font-weight: 500;
-`;
+export default App;
