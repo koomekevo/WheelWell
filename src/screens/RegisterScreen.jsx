@@ -57,12 +57,19 @@ const RegisterScreen = ({ navigation }) => {
         onChangeText={(text) => setConfirmPassword(text)}
         secureTextEntry
       />
-      <AuthButton title="Register" onPress={() => navigation.navigate("HomeScreen")} />
+      <AuthButton
+        title="Register"
+        onPress={() => navigation.navigate("HomeScreen")}
+      />
       <LoginLinkText onPress={() => navigation.navigate("LoginScreen")}>
         Have an account? Login here
       </LoginLinkText>
     </Container>
   );
+};
+
+RegisterScreen.options = {
+  tabBarVisible: false, // Hide the tab bar for this screen
 };
 
 export default RegisterScreen;
