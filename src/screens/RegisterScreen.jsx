@@ -39,7 +39,7 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <Container>
-      <RegisterText>Registration Screen</RegisterText>
+      <RegisterText>Register Account</RegisterText>
       <AuthInput
         placeholder="Email"
         value={email}

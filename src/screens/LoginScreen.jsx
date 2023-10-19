@@ -38,7 +38,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <Container>
-      <LoginText>Login Screen</LoginText>
+      <LoginText>Login to Account</LoginText>
       <AuthInput
         placeholder="Email"
         value={email}
