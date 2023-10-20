@@ -68,8 +68,4 @@ const RegisterScreen = ({ navigation }) => {
   );
 };
 
-RegisterScreen.options = {
-  tabBarVisible: false, // Hide the tab bar for this screen
-};
-
 export default RegisterScreen;

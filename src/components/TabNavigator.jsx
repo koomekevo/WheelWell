@@ -27,10 +27,6 @@ const TabNavigator = () => {
           return <TabBarIcon name={iconName} focused={focused} />;
         },
       })}
-      tabBarOptions={{
-        activeTintColor: "blue",
-        inactiveTintColor: "gray",
-      }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Chat" component={ChatScreen} />

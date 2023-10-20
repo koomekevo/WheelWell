@@ -61,8 +61,4 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
-LoginScreen.options = {
-  tabBarVisible: false, // Hide the tab bar for this screen
-};
-
 export default LoginScreen;
