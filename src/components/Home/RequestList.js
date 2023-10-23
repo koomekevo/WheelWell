@@ -1,12 +1,44 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from "react";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import styled from "styled-components/native";
 
-const RequestList = () => {
+const Container = styled.View`
+  flex: 1;
+  background-color: #fff;
+`;
+
+const RequestItem = styled.TouchableOpacity`
+  padding: 20px;
+  border-bottom-width: 1px;
+  border-bottom-color: #ccc;
+`;
+
+const RequestTitle = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+`;
+
+const RequestDescription = styled.Text`
+  font-size: 14px;
+  color: #888;
+`;
+
+const RequestList = ({ requests, onRequestPress }) => {
   return (
-    <View>
-      <Text>RequestList</Text>
-    </View>
-  )
-}
+    <Container>
+      <FlatList
+        data={requests}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <RequestItem onPress={() => onRequestPress(item.id)}>
+            <RequestTitle>{item.title}</RequestTitle>
+            <RequestDescription>{item.description}</RequestDescription>
+          </RequestItem>
+        )}
+      />
+    </Container>
+  );
+};
 
-export default RequestList
+export default RequestList;
