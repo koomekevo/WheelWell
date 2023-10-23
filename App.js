@@ -22,9 +22,9 @@ const HomeStack = () => (
       headerShown: false,
     }}
   >
+    <Stack.Screen name="HomeScreen" component={HomeScreen} />
     <Stack.Screen name="LoginScreen" component={LoginScreen} />
     <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-    <Stack.Screen name="HomeScreen" component={HomeScreen} />
   </Stack.Navigator>
 );
 
@@ -48,10 +48,6 @@ const App = () => {
             return <TabBarIcon name={iconName} focused={focused} />;
           },
         })}
-        tabBarOptions={{
-          activeTintColor: "blue",
-          inactiveTintColor: "gray",
-        }}
       >
         <Tab.Screen name="Home" component={HomeStack} />
         <Tab.Screen name="Chat" component={ChatScreen} />
