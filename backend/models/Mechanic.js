@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const mechanicSchema = new mongoose.Schema({
   name: {
@@ -16,6 +16,6 @@ const mechanicSchema = new mongoose.Schema({
   // Add more fields specific to mechanics here
 });
 
-const Mechanic = mongoose.model('Mechanic', mechanicSchema);
+const Mechanic = mongoose.model("Mechanic", mechanicSchema);
 
 module.exports = Mechanic;
