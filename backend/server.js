@@ -29,12 +29,14 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 // API Routes
+const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const mechanicRoutes = require('./routes/mechanicRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const requestRoutes = require('./routes/requestRoutes');
 
 // Use the API routes
+app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/mechanics', mechanicRoutes);
 app.use('/api/chats', chatRoutes);
