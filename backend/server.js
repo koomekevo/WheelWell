@@ -1,87 +1,57 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const session = require("express-session");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const path = require("path");
-const cors = require("cors");
+const express = require('express');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const path = require('path');
+const dotenv = require('dotenv');
 
-// Require the authentication middleware
-const authentication = require("./middleware/authentication");
+// Import the database connection function
+const connectDB = require('./config/database');
 
-// Load environment variables from .env
-require("dotenv").config();
+// Load environment variables from a .env file
+dotenv.config();
 
-// Create an Express app
+// Initialize Express
 const app = express();
-const port = process.env.PORT || 3000;
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false, // To avoid deprecation warnings
-});
+// Connect to the database
+connectDB();
 
 // Middleware
-app.use(cors()); // Enable CORS for cross-origin requests
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(morgan('combined'));
 
-// Passport Configuration
-const User = require("./models/User"); // Replace with your User model
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// Initialize Passport
+app.use(passport.initialize());
+
+// Configure Passport with the JWT strategy
+require('./config/passport')(passport);
+
+// API Routes
+const userRoutes = require('./routes/userRoutes');
+const mechanicRoutes = require('./routes/mechanicRoutes');
+const chatRoutes = require('./routes/chatRoutes');
+const requestRoutes = require('./routes/requestRoutes');
+
+// Use the API routes
+app.use('/api/users', userRoutes);
+app.use('/api/mechanics', mechanicRoutes);
+app.use('/api/chats', chatRoutes);
+app.use('/api/requests', requestRoutes);
 
 // Serve static assets in production (for React frontend)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+if (process.env.NODE_ENV === 'production') {
+  // Set the static folder
+  app.use(express.static('client/build'));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
 
-// Import and use your API routes
-const authRoutes = require("./routes/authRoutes");
-const chatRoutes = require("./routes/chatRoutes");
-const requestRoutes = require("./routes/requestRoutes");
-const userRoutes = require("./routes/userRoutes");
-const mechanicRoutes = require("./routes/mechanicRoutes");
-
-// Use the API routes
-app.use("/api/auth", authRoutes);
-app.use("/api/chat", chatRoutes);
-app.use("/api/request", requestRoutes);
-app.use("/api/user", userRoutes);
-app.use("/api/mechanics", mechanicRoutes);
-
-// Example: Protect a user route with authentication
-app.get("/user/profile", authentication.authenticateUser, (req, res) => {
-  // Route logic for user profile
-});
-
-// Example: Protect a mechanic route with authentication
-app.get(
-  "/mechanic/profile",
-  authentication.authenticateMechanic,
-  (req, res) => {
-    // Route logic for mechanic profile
-  }
-);
-
-// Start the server
+// Start your server
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
