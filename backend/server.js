@@ -7,6 +7,9 @@ const LocalStrategy = require("passport-local").Strategy;
 const path = require("path");
 const cors = require("cors");
 
+// Require the authentication middleware
+const authentication = require("./middleware/authentication");
+
 // Load environment variables from .env
 require("dotenv").config();
 
@@ -55,11 +58,28 @@ const authRoutes = require("./routes/authRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const requestRoutes = require("./routes/requestRoutes");
 const userRoutes = require("./routes/userRoutes");
+const mechanicRoutes = require("./routes/mechanicRoutes");
 
+// Use the API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/request", requestRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/mechanics", mechanicRoutes);
+
+// Example: Protect a user route with authentication
+app.get("/user/profile", authentication.authenticateUser, (req, res) => {
+  // Route logic for user profile
+});
+
+// Example: Protect a mechanic route with authentication
+app.get(
+  "/mechanic/profile",
+  authentication.authenticateMechanic,
+  (req, res) => {
+    // Route logic for mechanic profile
+  }
+);
 
 // Start the server
 app.listen(port, () => {
