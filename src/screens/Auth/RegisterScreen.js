@@ -36,8 +36,34 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleRegistration = () => {
-    // Add your registration logic here
+  const handleRegistration = async () => {
+    try {
+      const response = await fetch(
+        "http://your-backend-url/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        // Registration was successful, you can handle it as needed
+        console.log("Registration successful");
+      } else {
+        // Handle registration failure, e.g., show an error message
+        console.error("Registration failed");
+      }
+    } catch (error) {
+      // Handle network errors
+      console.error("Network error:", error);
+    }
   };
 
   return (
