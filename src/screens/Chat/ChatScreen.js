@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, FlatList, TextInput, Button, KeyboardAvoidingView } from 'react-native';
 import styled from 'styled-components/native';
+import io from 'socket.io-client';
 
 const Container = styled.View`
   flex: 1;
@@ -41,20 +42,28 @@ const SendButton = styled.Button`
   align-self: center;
 `;
 
-const ChatScreen = ({ chatTitle, messages, onSendMessage }) => {
+const socket = io('http://your-backend-url'); // Replace with your actual WebSocket server URL
+
+const ChatScreen = ({ chatTitle }) => {
+  const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
+  const messageListRef = useRef(null);
+
+  useEffect(() => {
+    // Listen for incoming messages via WebSocket
+    socket.on('message', (newMessage) => {
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      messageListRef.current.scrollToEnd();
+    });
+  }, []);
 
   const handleSendMessage = () => {
     if (message.trim() !== '') {
-      onSendMessage(message);
+      // Send the message via WebSocket to the backend
+      socket.emit('message', { text: message, chatId: 'your-chat-id' }); // Replace with the actual chat ID
       setMessage('');
     }
   };
-
-  useEffect(() => {
-    // Scroll to the end of the message list when new messages arrive
-    messageListRef.current.scrollToEnd();
-  }, [messages]);
 
   return (
     <Container>
@@ -62,11 +71,10 @@ const ChatScreen = ({ chatTitle, messages, onSendMessage }) => {
         <ChatHeaderText>{chatTitle}</ChatHeaderText>
       </ChatHeader>
       <MessageList
+        ref={messageListRef}
         data={messages}
         keyExtractor={(item, index) => `message-${index}`}
-        renderItem={({ item }) => (
-          <Text>{item.text}</Text>
-        )}
+        renderItem={({ item }) => <Text>{item.text}</Text>}
       />
       <MessageInputContainer>
         <MessageInput

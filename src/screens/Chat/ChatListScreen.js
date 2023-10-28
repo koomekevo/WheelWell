@@ -24,7 +24,27 @@ const ChatPreview = styled.Text`
   color: #888;
 `;
 
-const ChatListScreen = ({ chats, onChatPress }) => {
+const ChatListScreen = ({ onChatPress }) => {
+  const [chats, setChats] = useState([]);
+
+  useEffect(() => {
+    // Fetch chat data from the backend when the component mounts
+    fetch('http://your-backend-url/api/chats', {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer your_jwt_token', // Replace with a valid JWT token
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setChats(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching chat data:', error);
+      });
+  }, []);
+
   return (
     <Container>
       <FlatList
