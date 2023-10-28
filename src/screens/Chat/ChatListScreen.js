@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import styled from 'styled-components/native';
+import React, { useState, useEffect } from "react";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import styled from "styled-components/native";
 
 const Container = styled.View`
   flex: 1;
@@ -29,11 +29,11 @@ const ChatListScreen = ({ onChatPress }) => {
 
   useEffect(() => {
     // Fetch chat data from the backend when the component mounts
-    fetch('http://your-backend-url/api/chats', {
-      method: 'GET',
+    fetch("http://your-backend-url/api/chats", {
+      method: "GET",
       headers: {
-        'Authorization': 'Bearer your_jwt_token', // Replace with a valid JWT token
-        'Content-Type': 'application/json',
+        Authorization: "Bearer your_jwt_token", // Replace with a valid JWT token
+        "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
@@ -41,7 +41,7 @@ const ChatListScreen = ({ onChatPress }) => {
         setChats(data);
       })
       .catch((error) => {
-        console.error('Error fetching chat data:', error);
+        console.error("Error fetching chat data:", error);
       });
   }, []);
 

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Button } from 'react-native';
-import styled from 'styled-components/native';
-import MapView, { Marker } from 'react-native-maps';
+import React, { useEffect, useState } from "react";
+import { View, Text, Button } from "react-native";
+import styled from "styled-components/native";
+import MapView, { Marker } from "react-native-maps";
 
 const Container = styled.View`
   flex: 1;
@@ -28,10 +28,10 @@ const MapScreen = () => {
 
   useEffect(() => {
     // Add logic to fetch mechanic locations from the backend
-    fetch('http://your-backend-url/api/mechanic-locations', {
-      method: 'GET',
+    fetch("http://your-backend-url/api/mechanic-locations", {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
@@ -39,7 +39,7 @@ const MapScreen = () => {
         setMechanicLocations(data); // Assuming the response contains an array of mechanic locations
       })
       .catch((error) => {
-        console.error('Error fetching mechanic locations:', error);
+        console.error("Error fetching mechanic locations:", error);
       });
   }, []);
 
