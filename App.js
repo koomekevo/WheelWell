@@ -1,65 +1,75 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
+import axios from "axios"; // Import axios
 
-import HomeScreen from "./src/screens/HomeScreen"; // Your HomeScreen component showing nearby mechanics
-import ChatScreen from "./src/screens/ChatScreen"; // Create this component for chatting with mechanics
-import SearchScreen from "./src/screens/SearchScreen"; // Create this component for searching mechanics
-import LoginScreen from "./src/screens/LoginScreen"; // Create this component for login screen
-import RegisterScreen from "./src/screens/RegisterScreen"; // Create this component for register screen
-
-import { MaterialIcons } from "@expo/vector-icons"; // For tab icons
-import styled from "styled-components/native";
+// Import your screen components
+import MapScreen from "./src/Home/MapScreen";
+import ChatListScreen from "./src/screens/Chat/ChatListScreen";
+import RequestListScreen from "./src/screens/Home/RequestListScreen";
+import UserProfileScreen from "./src/Common/UserProfileScreen";
+import BottomTabNavigator from "./src/Common/BottomTabNavigator";
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const HomeStack = () => (
-  <Stack.Navigator
-    initialRouteName="Login"
-    screenOptions={{
-      headerShown: false,
-    }}
-  >
-    <Stack.Screen name="HomeScreen" component={HomeScreen} />
-    <Stack.Screen name="LoginScreen" component={LoginScreen} />
-    <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+  <Stack.Navigator>
+    <Stack.Screen name="Home" component={MapScreen} />
+  </Stack.Navigator>
+);
+
+const ChatStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Chat" component={ChatListScreen} />
+  </Stack.Navigator>
+);
+
+const RequestsStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Requests" component={RequestListScreen} />
+  </Stack.Navigator>
+);
+
+const ProfileStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Profile" component={UserProfileScreen} />
   </Stack.Navigator>
 );
 
 const App = () => {
+  // Define state to store data from the backend
+  const [data, setData] = useState([]);
+
+  // Function to fetch data from the backend
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("YOUR_BACKEND_URL/api/endpoint"); // Replace with your actual API endpoint
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  // Fetch data when the app loads
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Home"
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused }) => {
-            let iconName;
-
-            if (route.name === "Home") {
-              iconName = focused ? "home" : "home";
-            } else if (route.name === "Chat") {
-              iconName = focused ? "chat" : "chat";
-            } else if (route.name === "Search") {
-              iconName = focused ? "search" : "search";
-            }
-
-            return <TabBarIcon name={iconName} focused={focused} />;
-          },
-        })}
-      >
+      <Tab.Navigator tabBar={(props) => <BottomTabNavigator {...props} />}>
         <Tab.Screen name="Home" component={HomeStack} />
-        <Tab.Screen name="Chat" component={ChatScreen} />
-        <Tab.Screen name="Search" component={SearchScreen} />
+        <Tab.Screen name="Chat" component={ChatStack} />
+        <Tab.Screen name="Requests" component={RequestsStack} />
+        <Tab.Screen
+          name="Profile"
+          component={() => <UserProfileScreen data={data} />}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
 };
-
-const TabBarIcon = styled(MaterialIcons)`
-  font-size: 24px;
-  color: ${({ focused }) => (focused ? "blue" : "gray")};
-`;
 
 export default App;
