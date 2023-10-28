@@ -35,8 +35,32 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    // Add your login logic here
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("http://your-backend-url/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const { token } = data;
+        // Store the token in local storage or state
+        setToken(token);
+      } else {
+        // Handle login failure, e.g., show an error message
+        console.error("Login failed");
+      }
+    } catch (error) {
+      // Handle network errors
+      console.error("Network error:", error);
+    }
   };
 
   return (
