@@ -1,42 +1,13 @@
 import React from "react";
-import { View, Text } from "react-native";
 import styled from "styled-components/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import HomeScreen from "../screens/Home/MapScreen"; // Import the correct screens
+import ChatListScreen from "../screens/Chat/ChatListScreen";
+import RequestListScreen from "../screens/Home/RequestListScreen";
+import UserProfileScreen from "../screens/Common/UserProfileScreen";
 
 const Tab = createBottomTabNavigator();
-
-const HomeScreen = () => {
-  return (
-    <View>
-      <Text>Home Screen</Text>
-    </View>
-  );
-};
-
-const ChatScreen = () => {
-  return (
-    <View>
-      <Text>Chat Screen</Text>
-    </View>
-  );
-};
-
-const RequestsScreen = () => {
-  return (
-    <View>
-      <Text>Requests Screen</Text>
-    </View>
-  );
-};
-
-const ProfileScreen = () => {
-  return (
-    <View>
-      <Text>Profile Screen</Text>
-    </View>
-  );
-};
 
 const Container = styled.View`
   flex: 1;
@@ -53,22 +24,22 @@ const BottomTabNavigator = () => {
       <Tab.Navigator>
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={HomeScreen} // Link to the Home screen
           options={{ tabBarLabel: "Home" }}
         />
         <Tab.Screen
           name="Chat"
-          component={ChatScreen}
+          component={ChatListScreen} // Link to the Chat screen
           options={{ tabBarLabel: "Chat" }}
         />
         <Tab.Screen
           name="Requests"
-          component={RequestsScreen}
+          component={RequestListScreen} // Link to the Requests screen
           options={{ tabBarLabel: "Requests" }}
         />
         <Tab.Screen
           name="Profile"
-          component={ProfileScreen}
+          component={UserProfileScreen} // Link to the Profile screen
           options={{ tabBarLabel: "Profile" }}
         />
       </Tab.Navigator>
