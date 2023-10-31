@@ -1,74 +1,75 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import axios from "axios"; // Import axios
+import { Provider } from "react-redux"; // Assuming you're using Redux for state management
+import store from "./src/store"; // Import your Redux store
 
 // Import your screen components
-import MapScreen from "./src/Home/MapScreen";
-import ChatListScreen from "./src/screens/Chat/ChatListScreen";
-import RequestListScreen from "./src/screens/Home/RequestListScreen";
-import UserProfileScreen from "./src/Common/UserProfileScreen";
-import BottomTabNavigator from "./src/Common/BottomTabNavigator";
+import MotoristHomeScreen from "./src/screens/Motorists/MotoristHomeScreen";
+import MotoristChatScreen from "./src/screens/Motorists/MotoristChatScreen";
+import MotoristRequestListScreen from "./src/screens/Motorists/MotoristRequestListScreen";
+import MotoristProfileScreen from "./src/screens/Motorists/MotoristProfileScreen";
+
+import MechanicHomeScreen from "./src/screens/Mechanics/MechanicHomeScreen";
+import MechanicChatScreen from "./src/screens/Mechanics/MechanicChatScreen";
+import MechanicRequestListScreen from "./src/screens/Mechanics/MechanicRequestListScreen";
+import MechanicProfileScreen from "./src/screens/Mechanics/MechanicProfileScreen";
+
+import LoginScreen from "./src/screens/Auth/LoginScreen";
+import RegisterScreen from "./src/screens/Auth/RegisterScreen";
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+const AuthStack = createStackNavigator();
+const HomeStack = createStackNavigator();
 
-const HomeStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Home" component={MapScreen} />
-  </Stack.Navigator>
+const AuthScreens = () => (
+  <AuthStack.Navigator>
+    <AuthStack.Screen name="Login" component={LoginScreen} />
+    <AuthStack.Screen name="Register" component={RegisterScreen} />
+  </AuthStack.Navigator>
 );
 
-const ChatStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Chat" component={ChatListScreen} />
-  </Stack.Navigator>
-);
-
-const RequestsStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Requests" component={RequestListScreen} />
-  </Stack.Navigator>
-);
-
-const ProfileStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Profile" component={UserProfileScreen} />
-  </Stack.Navigator>
+const HomeScreens = () => (
+  <Tab.Navigator>
+    <Tab.Screen name="Motorist Home" component={MotoristHomeScreen} />
+    <Tab.Screen name="Motorist Chat" component={MotoristChatScreen} />
+    <Tab.Screen
+      name="Motorist Requests"
+      component={MotoristRequestListScreen}
+    />
+    <Tab.Screen name="Motorist Profile" component={MotoristProfileScreen} />
+    <Tab.Screen name="Mechanic Home" component={MechanicHomeScreen} />
+    <Tab.Screen name="Mechanic Chat" component={MechanicChatScreen} />
+    <Tab.Screen
+      name="Mechanic Requests"
+      component={MechanicRequestListScreen}
+    />
+    <Tab.Screen name="Mechanic Profile" component={MechanicProfileScreen} />
+  </Tab.Navigator>
 );
 
 const App = () => {
-  // Define state to store data from the backend
-  const [data, setData] = useState([]);
+  const [user, setUser] = useState(null); // User authentication state
 
-  // Function to fetch data from the backend
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("YOUR_BACKEND_URL/api/endpoint"); // Replace with your actual API endpoint
-      setData(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  // Fetch data when the app loads
   useEffect(() => {
-    fetchData();
+    // Check user authentication status here
+    const isAuthenticated = checkUserAuthentication(); // Replace with your actual authentication logic
+    if (isAuthenticated) {
+      setUser({
+        /* user data */
+      });
+    } else {
+      setUser(null);
+    }
   }, []);
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator tabBar={(props) => <BottomTabNavigator {...props} />}>
-        <Tab.Screen name="Home" component={HomeStack} />
-        <Tab.Screen name="Chat" component={ChatStack} />
-        <Tab.Screen name="Requests" component={RequestsStack} />
-        <Tab.Screen
-          name="Profile"
-          component={() => <UserProfileScreen data={data} />}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        {user ? <HomeScreens /> : <AuthScreens />}
+      </NavigationContainer>
+    </Provider>
   );
 };
 
