@@ -7,18 +7,18 @@ const bcrypt = require("bcryptjs");
 const authController = {
   // User registration
   register: async (req, res) => {
-    const { username, password } = req.body;
+    const { names, email, password, role } = req.body;
 
     try {
-      // Check if a user with the same username already exists
-      const existingUser = await User.findOne({ username });
+      // Check if a user with the same email already exists
+      const existingUser = await User.findOne({ email });
 
       if (existingUser) {
-        return res.status(400).json({ message: "Username already in use" });
+        return res.status(400).json({ message: "Email already in use" });
       }
 
       // Create a new user
-      const newUser = new User({ username });
+      const newUser = new User({ names, email, role });
       newUser.setPassword(password);
 
       await newUser.save();
@@ -44,7 +44,7 @@ const authController = {
 
         // Generate a JWT token
         const token = jwt.sign(
-          { id: user.id, username: user.username },
+          { id: user.id, email: user.email, role: user.role },
           process.env.JWT_SECRET
         );
 
