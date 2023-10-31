@@ -1,19 +1,15 @@
 // src/navigation/AppNavigator.js
 
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import MotoristHomeScreen from "../screens/Home/MotoristHomeScreen"; // Import your screen components
-import MechanicHomeScreen from "../screens/Home/MechanicHomeScreen"; // Import your screen components
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import BottomTabNavigator from '../components/Common/BottomTabNavigator'; // Import the BottomTabNavigator
 
-const AppNavigator = createStackNavigator(
-  {
-    MotoristHome: { screen: MotoristHomeScreen },
-    MechanicHome: { screen: MechanicHomeScreen },
-    // Add more screens and configurations as needed
-  },
-  {
-    initialRouteName: "MotoristHome", // Set the initial route
-  }
-);
+const AppNavigator = () => {
+  return (
+    <NavigationContainer>
+      <BottomTabNavigator />
+    </NavigationContainer>
+  );
+};
 
-export default createAppContainer(AppNavigator);
+export default AppNavigator;

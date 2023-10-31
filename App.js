@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Provider } from "react-redux"; // Assuming you're using Redux for state management
 import store from "./src/store"; // Import your Redux store
+import AppNavigator from "./src/navigation/AppNavigator"; // Import your AppNavigator
 
 // Import your screen components
 import MotoristHomeScreen from "./src/screens/Motorists/MotoristHomeScreen";
@@ -68,6 +69,7 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         {user ? <HomeScreens /> : <AuthScreens />}
+        <AppNavigator />
       </NavigationContainer>
     </Provider>
   );
