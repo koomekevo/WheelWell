@@ -1,63 +1,105 @@
-// src/components/Auth/Register.js
-
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, Alert, Picker } from "react-native";
-import axios from "axios"; // Import the axios library
+import { View, Text, TextInput, Button, TouchableOpacity } from "react-native";
+import styled from "styled-components/native";
+import { connect } from "react-redux";
+import { register } from "../../actions/authActions"; // Import your register action
 
-const Register = () => {
+const Container = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Input = styled.TextInput`
+  width: 80%;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+const Dropdown = styled.Picker`
+  width: 80%;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+const LinkText = styled.Text`
+  margin-top: 10px;
+`;
+
+const Register = ({ register, navigation }) => {
+  const [names, setNames] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userType, setUserType] = useState("Motorist"); // Default to 'Motorist'
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("motorist"); // Default to "motorist" role
 
-  const handleRegistration = async () => {
-    try {
-      // Make a POST request to your backend registration endpoint
-      const response = await axios.post("your_backend_registration_endpoint", {
-        email,
-        password,
-        userType,
-      });
-
-      if (response.data.success) {
-        // Registration successful, you can navigate to the login screen or perform other actions
-        // You might also want to store user data in Redux state or AsyncStorage
-        // For navigation, you can use React Navigation
-        // navigation.navigate('Login'); // Replace 'Login' with your actual login screen name
-      } else {
-        // Handle registration failure, e.g., display an error message
-        Alert.alert("Registration Failed", response.data.message);
-      }
-    } catch (error) {
-      // Handle network errors or other exceptions here
-      Alert.alert("Error", "An error occurred while registering.");
+  const handleRegister = () => {
+    // Perform validation if needed
+    if (password !== confirmPassword) {
+      // Handle password mismatch
+      console.error("Passwords do not match");
+      return;
     }
+
+    const userData = { names, email, password, role };
+
+    // Dispatch the register action
+    register(userData)
+      .then(() => {
+        // Redirect to the appropriate screen based on the user's role
+        if (role === "motorist") {
+          navigation.navigate("MotoristHomeScreen");
+        } else if (role === "mechanic") {
+          navigation.navigate("MechanicHomeScreen");
+        }
+      })
+      .catch((error) => {
+        // Handle registration error (e.g., display an error message)
+        console.error("Registration failed:", error);
+      });
   };
 
   return (
-    <View>
+    <Container>
       <Text>Register</Text>
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-      />
-      <TextInput
+      <Input placeholder="Full Names" value={names} onChangeText={setNames} />
+      <Input placeholder="Email" value={email} onChangeText={setEmail} />
+      <Input
         placeholder="Password"
         value={password}
-        onChangeText={(text) => setPassword(text)}
+        onChangeText={setPassword}
         secureTextEntry
       />
-      <Text>Choose User Type:</Text>
-      <Picker
-        selectedValue={userType}
-        onValueChange={(value) => setUserType(value)}
+      <Input
+        placeholder="Confirm Password"
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+        secureTextEntry
+      />
+      <Dropdown
+        selectedValue={role}
+        onValueChange={(itemValue, itemIndex) => setRole(itemValue)}
       >
-        <Picker.Item label="Motorist" value="Motorist" />
-        <Picker.Item label="Mechanic" value="Mechanic" />
-      </Picker>
-      <Button title="Register" onPress={handleRegistration} />
-    </View>
+        <Dropdown.Item label="Motorist" value="motorist" />
+        <Dropdown.Item label="Mechanic" value="mechanic" />
+      </Dropdown>
+      <Button title="Register" onPress={handleRegister} />
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Login")} // Navigate to the Login screen
+      >
+        <LinkText>Already have an account? Login here</LinkText>
+      </TouchableOpacity>
+    </Container>
   );
 };
 
-export default Register;
+// Connect the component to Redux
+const mapStateToProps = (state) => ({
+  // Map your state to component props if needed
+});
+
+export default connect(mapStateToProps, { register })(Register);
