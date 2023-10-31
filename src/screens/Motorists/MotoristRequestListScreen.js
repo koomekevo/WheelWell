@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { View, Button, ScrollView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components/native";
-import { fetchMotoristRequests } from "../actions/requestActions"; // Import your action
-import RequestList from "../components/Common/RequestList"; // Import your RequestList component
+import { fetchMotoristRequests } from "../../actions/requestActions"; // Import your action
+import RequestList from "../../components/Home/Motorists/RequestList"; // Import your RequestList component
 
 const Container = styled.View`
   flex: 1;
