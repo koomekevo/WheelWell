@@ -8,6 +8,9 @@ import {
   SEND_REQUEST_REQUEST,
   SEND_REQUEST_SUCCESS,
   SEND_REQUEST_FAILURE,
+  ACCEPT_REQUEST_REQUEST,
+  ACCEPT_REQUEST_SUCCESS,
+  ACCEPT_REQUEST_FAILURE,
 } from "./types";
 
 // Fetch user requests
@@ -52,5 +55,26 @@ export const sendRequest = (mechanicId, message) => (dispatch, getState) => {
     })
     .catch((err) => {
       dispatch({ type: SEND_REQUEST_FAILURE, payload: err.response.data });
+    });
+};
+
+// Accept a request
+export const acceptRequest = (requestId) => (dispatch, getState) => {
+  // Request headers
+  const config = {
+    headers: {
+      Authorization: `Bearer ${getState().auth.token}`,
+    },
+  };
+
+  dispatch({ type: ACCEPT_REQUEST_REQUEST });
+
+  axios
+    .post(`/api/requests/accept/${requestId}`, null, config)
+    .then((res) => {
+      dispatch({ type: ACCEPT_REQUEST_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({ type: ACCEPT_REQUEST_FAILURE, payload: err.response.data });
     });
 };
