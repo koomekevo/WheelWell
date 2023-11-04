@@ -1,29 +1,12 @@
 const express = require("express");
-const router = express.Router();
-const passport = require("passport");
-const userService = require("../services/userService");
+const userProfileController = require("../controllers/userProfileController");
 
-// Get user profile
-router.get(
-  "/profile",
-  passport.authenticate("jwt", { session: false }),
-  userService.getUserProfile
-);
+const router = express.Router();
+
+// Get user profile by user ID
+router.get("/user/:userId", userProfileController.getUserProfile);
 
 // Update user profile
-router.put(
-  "/profile",
-  passport.authenticate("jwt", { session: false }),
-  userService.updateUserProfile
-);
-
-// Change user password
-router.put(
-  "/change-password",
-  passport.authenticate("jwt", { session: false }),
-  userService.changeUserPassword
-);
-
-// Add more user-related routes as needed
+router.put("/user/:userId", userProfileController.updateUserProfile);
 
 module.exports = router;
