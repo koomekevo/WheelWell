@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const requestSchema = new mongoose.Schema({
-  requester: {
+  motorist: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Motorist",
     required: true,
   },
   mechanic: {
@@ -11,16 +11,16 @@ const requestSchema = new mongoose.Schema({
     ref: "Mechanic",
     required: true,
   },
+  message: {
+    type: String,
+    required: true,
+  },
   status: {
     type: String,
-    enum: ["Pending", "Accepted", "Completed"],
-    default: "Pending",
+    enum: ["Sent", "Accepted", "Rejected"],
+    default: "Sent",
   },
-  description: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  // You can add more fields relevant to a request here
 });
 
 const Request = mongoose.model("Request", requestSchema);
