@@ -1,14 +1,12 @@
-const express = require('express');
+const express = require("express");
+const chatController = require("../controllers/chatController");
+
 const router = express.Router();
-const passport = require('passport');
-const chatService = require('../services/chatService');
 
-// Get chat messages for a specific chat room
-router.get('/:chatId', passport.authenticate('jwt', { session: false }), chatService.getChatMessages);
+// Create a new chat
+router.post("/chats", chatController.createChat);
 
-// Send a new message in a chat room
-router.post('/:chatId', passport.authenticate('jwt', { session: false }), chatService.sendMessage);
-
-// Add more chat-related routes as needed
+// Get all chats for a user
+router.get("/chats/:userId", chatController.getChats);
 
 module.exports = router;

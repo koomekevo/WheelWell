@@ -1,12 +1,18 @@
-const express = require("express");
+const express = require('express');
+const passport = require('passport');
+const authController = require('../controllers/authController');
+
 const router = express.Router();
-const passport = require("passport");
-const authService = require("../services/authService");
 
-// Registration route
-router.post("/register", authService.register);
+// User registration
+router.post('/register', authController.register);
 
-// Login route
-router.post("/login", passport.authenticate("local"), authService.login);
+// User login
+router.post('/login', authController.login);
+
+// Example of a protected route
+router.get('/protected', passport.authenticate('jwt', { session: false }), (req, res) => {
+  res.json({ message: 'This is a protected route.' });
+});
 
 module.exports = router;
