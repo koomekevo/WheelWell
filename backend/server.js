@@ -1,69 +1,66 @@
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
 const morgan = require("morgan");
 const path = require("path");
-const dotenv = require("dotenv");
-
-// Import the database connection function
-const connectDB = require("./config/database");
-
-// Load environment variables from a .env file
-dotenv.config();
-
-// Initialize Express
 const app = express();
 
-// Import and use middleware for parsing JSON
-app.use(express.json());
-
-// Import the authController
-const authController = require('./controllers/authController'); // Adjust the path as needed
-
-// Define routes for registration and login
-app.post('/api/register', authController.register); // Route for user registration
-app.post('/api/login', authController.login); // Route for user login
-
-// Connect to the database
-connectDB();
+// Load environment variables from .env
+dotenv.config();
 
 // Middleware
-app.use(bodyParser.json());
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan("combined"));
 
-// Initialize Passport
+// Passport middleware for authentication
 app.use(passport.initialize());
 
-// Configure Passport with the JWT strategy
+// Passport configuration
 require("./config/passport")(passport);
 
-// API Routes
+// Connect to MongoDB
+mongoose
+  .connect(process.env.DB_CONNECTION_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
+
+// Routes
 const authRoutes = require("./routes/authRoutes");
-const userRoutes = require("./routes/userRoutes");
-const mechanicRoutes = require("./routes/mechanicRoutes");
 const chatRoutes = require("./routes/chatRoutes");
+const mechanicRoutes = require("./routes/mechanicRoutes");
+const motoristRoutes = require("./routes/motoristRoutes");
 const requestRoutes = require("./routes/requestRoutes");
+const userProfileRoutes = require("./routes/userProfileRoutes");
 
-// Use the API routes
 app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
+app.use("/api/chat", chatRoutes);
 app.use("/api/mechanics", mechanicRoutes);
-app.use("/api/chats", chatRoutes);
+app.use("/api/motorists", motoristRoutes);
 app.use("/api/requests", requestRoutes);
+app.use("/api/user", userProfileRoutes);
 
-// Serve static assets in production (for React frontend)
+// Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
-  // Set the static folder
-  app.use(express.static("client/build"));
+  // Set static folder
+  app.use(express.static("frontend/build"));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
   });
 }
 
-// Start your server
-const port = process.env.PORT || 3000;
+// Start the server
+const port = process.env.PORT || 5000;
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
