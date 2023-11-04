@@ -1,22 +1,12 @@
 const express = require("express");
+const mechanicController = require("../controllers/mechanicController");
+
 const router = express.Router();
-const passport = require("passport");
-const mechanicService = require("../services/mechanicService");
 
-// Get mechanic profile
-router.get(
-  "/profile",
-  passport.authenticate("jwt", { session: false }),
-  mechanicService.getMechanicProfile
-);
+// Create a new mechanic profile
+router.post("/mechanics", mechanicController.createMechanic);
 
-// Update mechanic profile
-router.put(
-  "/profile",
-  passport.authenticate("jwt", { session: false }),
-  mechanicService.updateMechanicProfile
-);
-
-// Add more mechanic-related routes as needed
+// Get a list of available mechanics
+router.get("/mechanics/available", mechanicController.getAvailableMechanics);
 
 module.exports = router;
