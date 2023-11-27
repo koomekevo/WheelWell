@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import logo from "../../../assest/images/logo.png"; // Make sure the path to your logo is correct
+import logo from "../../../assest/images/logo.png"; 
 import { useNavigation } from '@react-navigation/native';
-
 const LoginScreen = ({ setIsAuthenticated }) => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
+    console.log("Attempting to log in...");
     // Your login logic here
     // If login is successful:
     setIsAuthenticated(true);
-    navigation.navigate('Home');
+    console.log("Logged in, isAuthenticated state set to true");
   };
+  
 
   return (
     <View style={styles.container}>
@@ -39,7 +40,7 @@ const LoginScreen = ({ setIsAuthenticated }) => {
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-        <Text style={styles.buttonText1}>Don't have an account? Sign Up</Text>
+        <Text style={styles.buttonText1}>Don't have an account? SignUp</Text>
       </TouchableOpacity>
     </View>
   );

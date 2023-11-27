@@ -44,8 +44,8 @@ const Register = () => {
       <RNPickerSelect
         onValueChange={setRole}
         items={[
-          { label: 'User', value: 'user' },
-          { label: 'Admin', value: 'admin' }
+          { label: 'Mechanic', value: 'Mechanic' },
+          { label: 'Motorist', value: 'Motorist' }
         ]}
         style={pickerSelectStyles}
         placeholder={{ label: "Select a role...", value: null }}
@@ -54,7 +54,7 @@ const Register = () => {
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
       <TouchableOpacity  onPress={()=>{navigation.navigate('Login')}}>
-        <Text style={styles.buttonText1}>Already have an account? Log In</Text>
+        <Text style={styles.buttonText1}>Already have an account? Login</Text>
       </TouchableOpacity>
     </View>
   );
