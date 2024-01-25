@@ -1,12 +1,9 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text } from "react-native";
+import React from "react";
+import { Tabs } from "expo-router";
 
 const _layout = () => {
-  return (
-    <View>
-      <Text>_layout</Text>
-    </View>
-  )
-}
+  return <Tabs></Tabs>;
+};
 
-export default _layout
+export default _layout;
