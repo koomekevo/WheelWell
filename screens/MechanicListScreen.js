@@ -1,6 +1,6 @@
 // screens/MechanicListScreen.js
 import React from "react";
-import { FlatList, TouchableOpacity } from "react-native";
+import { FlatList, TouchableOpacity, Text } from "react-native";
 import styled from "styled-components/native";
 
 const Container = styled.View`
