@@ -1,30 +1,60 @@
 // App.js
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import HomeScreen from "./screens/HomeScreen";
 import MechanicListScreen from "./screens/MechanicListScreen";
-import MechanicProfileScreen from "./screens/MechanicProfileScreen";
 import MotoristProfileScreen from "./screens/MotoristProfileScreen";
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="MechanicList" component={MechanicListScreen} />
-        <Stack.Screen
-          name="MechanicProfile"
-          component={MechanicProfileScreen}
+      <Tab.Navigator
+        initialRouteName="Home"
+        tabBarOptions={{
+          activeTintColor: "blue",
+          inactiveTintColor: "gray",
+        }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarLabel: "Home",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="home" color={color} size={size} />
+            ),
+          }}
         />
-        <Stack.Screen
+        <Tab.Screen
+          name="MechanicList"
+          component={MechanicListScreen}
+          options={{
+            tabBarLabel: "Mechanics",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="wrench" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
           name="MotoristProfile"
           component={MotoristProfileScreen}
+          options={{
+            tabBarLabel: "Profile",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="account"
+                color={color}
+                size={size}
+              />
+            ),
+          }}
         />
-      </Stack.Navigator>
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };
