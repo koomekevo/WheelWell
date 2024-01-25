@@ -15,7 +15,7 @@ const App = () => {
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Home"
-        tabBarOptions={{
+        screenOptions={{
           activeTintColor: "blue",
           inactiveTintColor: "gray",
         }}
