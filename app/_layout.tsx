@@ -7,6 +7,8 @@ import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
+const CLERK_PUBLISHABLE_KEY = process.env.CLERK_PUBLISHABLE_KEY;
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
