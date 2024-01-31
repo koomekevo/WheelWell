@@ -12,9 +12,7 @@ const Page = () => {
         autoCapitalize="none"
         placeholder="Email"
         style={[defaultStyles.inputField]}
-      >
-        Login
-      </TextInput>
+      />
     </View>
   );
 };
