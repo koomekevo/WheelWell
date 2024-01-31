@@ -8,6 +8,7 @@ import {
 import React from "react";
 import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
 import { defaultStyles } from "@/constants/Styles";
+import Colors from "@/constants/Colors";
 
 const Page = () => {
   useWarmUpBrowser();
@@ -22,6 +23,24 @@ const Page = () => {
       <TouchableOpacity style={defaultStyles.btn}>
         <Text style={defaultStyles.btnText}>Continue</Text>
       </TouchableOpacity>
+
+      <View style={styles.seperatorView}>
+        <View
+          style={{
+            flex: 1,
+            borderBottomColor: "black",
+            borderBottomWidth: StyleSheet.hairlineWidth,
+          }}
+        />
+        <Text style={styles.seperator}>or</Text>
+        <View
+          style={{
+            flex: 1,
+            borderBottomColor: "black",
+            borderBottomWidth: StyleSheet.hairlineWidth,
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -31,6 +50,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "fff",
     padding: 26,
+  },
+  seperatorView: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
+    marginVertical: 30,
+  },
+  seperator: {
+    fontFamily: "mon-sb",
+    color: Colors.grey,
+    fontSize: 16,
   },
 });
 
