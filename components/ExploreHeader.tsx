@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     gap: 10,
     padding: 14,
     alignItems: "center",
-    width: 280,
+    width: 250,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: "#c2c2c2",
     borderRadius: 30,
