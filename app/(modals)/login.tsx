@@ -93,17 +93,6 @@ const Page = () => {
           />
           <Text style={styles.btnOutlineText}>Continue with Google</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.btnOutline}
-          onPress={() => onSelectAuth(Strategy.Facebook)}
-        >
-          <Ionicons
-            name="logo-facebook"
-            size={24}
-            style={defaultStyles.btnIcon}
-          />
-          <Text style={styles.btnOutlineText}>Continue with Facebook</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
