@@ -6,7 +6,7 @@ import Listings from "@/components/Listings";
 import listingsData from "@/assets/data/airbnb-listings.json";
 
 const Page = () => {
-  const [category, setCategory] = useState<string>("Tiny homes");
+  const [category, setCategory] = useState("Tiny homes");
   const items = useMemo(() => listingsData as any, []);
 
   const onDataChanged = (category: string) => {
@@ -20,7 +20,7 @@ const Page = () => {
           header: () => <ExploreHeader onCategoryChanged={onDataChanged} />,
         }}
       />
-      <Listings listings={[]} category={category} />
+      <Listings listings={items} category={category} />
     </View>
   );
 };
