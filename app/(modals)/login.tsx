@@ -9,6 +9,7 @@ import React from "react";
 import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
 import { defaultStyles } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
+import { Ionicons } from "@expo/vector-icons";
 
 const Page = () => {
   useWarmUpBrowser();
@@ -41,6 +42,27 @@ const Page = () => {
           }}
         />
       </View>
+      <View style={{ gap: 20 }}>
+        <TouchableOpacity style={styles.btnOutline}>
+          <Ionicons
+            name="call-outline"
+            size={24}
+            style={defaultStyles.btnIcon}
+          />
+          <Text style={styles.btnOutlineText}>Continue with Phone</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.btnOutline}
+          onPress={() => onSelectAuth(Strategy.Google)}
+        >
+          <Ionicons
+            name="logo-google"
+            size={24}
+            style={defaultStyles.btnIcon}
+          />
+          <Text style={styles.btnOutlineText}>Continue with Google</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -61,6 +83,22 @@ const styles = StyleSheet.create({
     fontFamily: "mon-sb",
     color: Colors.grey,
     fontSize: 16,
+  },
+  btnOutline: {
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: Colors.grey,
+    height: 50,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    paddingHorizontal: 10,
+  },
+  btnOutlineText: {
+    color: "#000",
+    fontSize: 16,
+    fontFamily: "mon-sb",
   },
 });
 
