@@ -6,13 +6,44 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
+import { useOAuth } from "@clerk/clerk-expo";
+import { useRouter } from "expo-router";
 import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
 import { defaultStyles } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 
+enum Strategy {
+  Google = "oauth_google",
+  Facebook = "oauth_facebook",
+}
+
 const Page = () => {
   useWarmUpBrowser();
+
+  const router = useRouter();
+  const { startOAuthFlow: googleAuth } = useOAuth({ strategy: "oauth_google" });
+  const { startOAuthFlow: facebookAuth } = useOAuth({
+    strategy: "oauth_facebook",
+  });
+
+  const onSelectAuth = async (strategy: Strategy) => {
+    const selectedAuth = {
+      [Strategy.Google]: googleAuth,
+      [Strategy.Facebook]: facebookAuth,
+    }[strategy];
+
+    try {
+      const { createdSessionId, setActive } = await selectedAuth();
+
+      if (createdSessionId) {
+        setActive!({ session: createdSessionId });
+        router.back();
+      }
+    } catch (err) {
+      console.error("OAuth error", err);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -61,6 +92,17 @@ const Page = () => {
             style={defaultStyles.btnIcon}
           />
           <Text style={styles.btnOutlineText}>Continue with Google</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.btnOutline}
+          onPress={() => onSelectAuth(Strategy.Facebook)}
+        >
+          <Ionicons
+            name="logo-facebook"
+            size={24}
+            style={defaultStyles.btnIcon}
+          />
+          <Text style={styles.btnOutlineText}>Continue with Facebook</Text>
         </TouchableOpacity>
       </View>
     </View>
