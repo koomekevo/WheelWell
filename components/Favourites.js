@@ -1,55 +1,57 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList } from "react-native";
 import styled from "styled-components/native";
+import { getFavorites } from "../api"; // Assuming you have an API function to retrieve favorites
 
 const Container = styled.View`
   flex: 1;
-  justify-content: center;
-  align-items: center;
+  padding: 20px;
 `;
 
-const ListItem = styled.TouchableOpacity`
-  padding: 10px;
-  border-bottom-width: 1px;
-  border-bottom-color: #ccc;
+const Title = styled.Text`
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
 `;
 
-const ItemText = styled.Text`
-  font-size: 16px;
+const ItemContainer = styled.View`
+  margin-bottom: 10px;
 `;
 
-const Favourites = () => {
-  const [favourites, setFavourites] = useState([]);
+const Name = styled.Text`
+  font-size: 18px;
+`;
+
+const Favourites = ({ userRole, userId }) => {
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    // Fetch favourites from your backend or AsyncStorage
-    // For demonstration purposes, let's assume we have a list of favourites
-    const fetchedFavourites = [
-      { id: 1, name: "Favourite Mechanic 1" },
-      { id: 2, name: "Favourite Mechanic 2" },
-      { id: 3, name: "Favourite Mechanic 3" },
-    ];
-    setFavourites(fetchedFavourites);
-  }, []);
+    // Fetch favorites based on user role and ID
+    const fetchFavorites = async () => {
+      try {
+        const data = await getFavorites(userRole, userId);
+        setFavorites(data);
+      } catch (error) {
+        console.error("Error fetching favorites:", error);
+      }
+    };
 
-  const renderFavouriteItem = ({ item }) => (
-    <ListItem>
-      <ItemText>{item.name}</ItemText>
-    </ListItem>
-  );
+    fetchFavorites();
+  }, [userRole, userId]);
 
   return (
     <Container>
-      {favourites.length === 0 ? (
-        <Text>No favourites found</Text>
-      ) : (
-        <FlatList
-          data={favourites}
-          renderItem={renderFavouriteItem}
-          keyExtractor={(item) => item.id.toString()}
-          style={{ width: "100%" }}
-        />
-      )}
+      <Title>Favourites</Title>
+      <FlatList
+        data={favorites}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <ItemContainer>
+            <Name>{item.name}</Name>
+          </ItemContainer>
+        )}
+        ListEmptyComponent={<Text>No favorites found</Text>}
+      />
     </Container>
   );
 };

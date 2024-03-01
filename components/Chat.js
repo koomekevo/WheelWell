@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, Platform, KeyboardAvoidingView } from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
+import styled from "styled-components/native";
 import io from "socket.io-client";
 
-const Chat = ({ route }) => {
-  const { mechanicId, mechanicName } = route.params;
+const Container = styled.View`
+  flex: 1;
+`;
+
+const Chat = ({ userRole, userId }) => {
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
 
@@ -33,10 +37,11 @@ const Chat = ({ route }) => {
         );
       });
 
-      // Join the room for the mechanic
-      socket.emit("join", mechanicId);
+      // Join the appropriate room based on user role and ID
+      const room = userRole === "driver" ? `driver-${userId}` : `mechanic-${userId}`;
+      socket.emit("join", room);
     }
-  }, [socket, mechanicId]);
+  }, [socket, userRole, userId]);
 
   const onSend = (newMessages = []) => {
     if (socket) {
@@ -45,16 +50,16 @@ const Chat = ({ route }) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <Container>
       <GiftedChat
         messages={messages}
         onSend={onSend}
         user={{
-          _id: 1, // Assuming 1 is the user ID
+          _id: userId,
         }}
       />
       {Platform.OS === "android" && <KeyboardAvoidingView behavior="padding" />}
-    </View>
+    </Container>
   );
 };
 
