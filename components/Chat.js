@@ -1,38 +1,60 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
-import styled from 'styled-components/native';
-
-const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
+import React, { useState, useEffect } from "react";
+import { View, Platform, KeyboardAvoidingView } from "react-native";
+import { GiftedChat } from "react-native-gifted-chat";
+import io from "socket.io-client";
 
 const Chat = ({ route }) => {
-  const [message, setMessage] = useState('');
-  const { mechanicName } = route.params; // Assuming you pass mechanicName as a parameter
+  const { mechanicId, mechanicName } = route.params;
+  const [messages, setMessages] = useState([]);
+  const [socket, setSocket] = useState(null);
 
-  const handleMessageSend = () => {
-    // Handle sending message logic here
-    console.log('Sending message:', message);
-    // You can use WebSocket or any other communication method to send messages
-    // Reset message input after sending
-    setMessage('');
+  useEffect(() => {
+    const newSocket = io("YOUR_SOCKET_SERVER_URL"); // Replace 'YOUR_SOCKET_SERVER_URL' with your actual server URL
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("connect", () => {
+        console.log("Connected to server");
+      });
+
+      socket.on("disconnect", () => {
+        console.log("Disconnected from server");
+      });
+
+      socket.on("newMessage", (message) => {
+        setMessages((previousMessages) =>
+          GiftedChat.append(previousMessages, message)
+        );
+      });
+
+      // Join the room for the mechanic
+      socket.emit("join", mechanicId);
+    }
+  }, [socket, mechanicId]);
+
+  const onSend = (newMessages = []) => {
+    if (socket) {
+      socket.emit("sendMessage", newMessages[0]);
+    }
   };
 
   return (
-    <Container>
-      <Text>Chat with {mechanicName}</Text>
-      {/* Display chat messages here */}
-      <TextInput
-        placeholder="Type your message..."
-        value={message}
-        onChangeText={setMessage}
-        multiline
-        style={{ borderWidth: 1, borderColor: 'gray', width: '80%', padding: 5, marginTop: 10 }}
+    <View style={{ flex: 1 }}>
+      <GiftedChat
+        messages={messages}
+        onSend={onSend}
+        user={{
+          _id: 1, // Assuming 1 is the user ID
+        }}
       />
-      <Button title="Send" onPress={handleMessageSend} />
-    </Container>
+      {Platform.OS === "android" && <KeyboardAvoidingView behavior="padding" />}
+    </View>
   );
 };
 
