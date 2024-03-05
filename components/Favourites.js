@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList } from "react-native";
 import styled from "styled-components/native";
-import { getFavorites } from "../api"; // Assuming you have an API function to retrieve favorites
+import getFavorites from "../api"; // Import the API function to retrieve favorites
 
 const Container = styled.View`
   flex: 1;
